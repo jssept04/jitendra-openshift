@@ -118,4 +118,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if File.exists?(File.join(vagrant_dir,'provision','provision-post.sh')) then
     config.vm.provision :shell, :path => File.join( "provision", "provision-post.sh" )
   end
-end
+  config.vm.provision :guest_ansible do |guest_ansible|
+    guest_ansible.playbook = "any_playbook.yml"
+    guest_ansible.extra_vars = extra_vars
+    guest_ansible.sudo = false
+  end  
+  end
